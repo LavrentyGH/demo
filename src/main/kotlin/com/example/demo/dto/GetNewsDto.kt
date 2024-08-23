@@ -6,9 +6,10 @@ import lombok.Data
 
 @Data
 @AllArgsConstructor
-class GetNewsDto {
-    private val content: List<TodoEntity>? = null
-    private val notReady: Int? = null
-    private val numberOfElements: Int? = null
-    private val ready: Int? = null
+data class GetNewsDto (
+    val content: List<TodoEntity>? = null,
+    val notReady: Int? = null,
+    val numberOfElements: Int? = null,
+    val ready: Int? = null
+        ) {
 }

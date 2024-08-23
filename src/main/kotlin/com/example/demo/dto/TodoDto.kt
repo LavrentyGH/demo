@@ -13,17 +13,17 @@ class TodoDto {
 
     @Null(groups = [ChangeStatus::class])
     @NotNull(groups = [Create::class, ChangeText::class])
-    private val text: @Length(max = 160, min = 3, groups = [Create::class, ChangeText::class]) String? = null
+    val text: @Length(max = 160, min = 3, groups = [Create::class, ChangeText::class]) String? = null
 
     @Null(groups = [ChangeText::class])
     @NotNull(groups = [ChangeStatus::class])
-    private val status: Boolean? = null
+    val status: Boolean? = null
 
     @Null(groups = [ChangeText::class, ChangeStatus::class])
-    private val createdAt: LocalDateTime? = null
+    val createdAt: LocalDateTime? = null
 
     @Null(groups = [ChangeStatus::class, ChangeText::class])
-    private val updatedAt: LocalDateTime? = null
+    val updatedAt: LocalDateTime? = null
 
     interface ChangeStatus
     interface Create

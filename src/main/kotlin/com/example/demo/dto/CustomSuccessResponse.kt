@@ -8,13 +8,15 @@ import org.springframework.http.ResponseEntity
 @NoArgsConstructor
 @Data
 @JsonInclude(JsonInclude.Include.NON_NULL)
-class CustomSuccessResponse<T> {
-    private val data: T? = null
-    private val statusCode = 0
-    private val success = true
+data class CustomSuccessResponse<T>(
+    var data: T? = null,
+    val statusCode: Int = 0,
+    val success: Boolean = true
+) {
+
     fun <T> okWithData(data: T): ResponseEntity<CustomSuccessResponse<T>?>? {
         val customSuccessResponse: CustomSuccessResponse<T> = CustomSuccessResponse()
-        customSuccessResponse.setData(data)
+        customSuccessResponse.data = data
         return ResponseEntity.ok().body(customSuccessResponse)
     }
 

@@ -1,12 +1,14 @@
 package com.example.demo.reposirores
 
+import com.example.demo.entity.TodoEntity
 import org.springframework.data.domain.Pageable
+import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.data.jpa.repository.Modifying
 import org.springframework.data.jpa.repository.Query
 import org.springframework.stereotype.Repository
 
 @Repository
-interface TodoRepository extends JpaRepository<TodoEntity, Long> {
+interface TodoRepository : JpaRepository<TodoEntity, Long> {
     @Modifying
     @Query("UPDATE TodoEntity t SET t.status = :status")
     fun updateStatus(status: Boolean?)

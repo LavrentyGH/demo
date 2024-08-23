@@ -20,8 +20,9 @@ class TodoController {
 
     @PostMapping
     fun create(@RequestBody @Validated(TodoDto.Create::class) dto: TodoDto?):
-            ResponseEntity<CustomSuccessResponse<TodoEntity?>?>? {
-        return ResponseEntity<Any?>(todoService.create(dto), HttpStatus.CREATED)
+    Any{
+    //ResponseEntity<CustomSuccessResponse<TodoEntity?>?>? {
+        return ResponseEntity<Any?>(todoService?.create(dto), HttpStatus.CREATED)
     }
 
     @GetMapping
@@ -30,25 +31,28 @@ class TodoController {
         @RequestParam perPage: Int?,
         @RequestParam(required = false) status: Boolean?
     ): ResponseEntity<CustomSuccessResponse<GetNewsDto?>?>? {
-        return CustomSuccessResponse.okWithData(todoService.getPaginated(page, perPage, status))
+        return CustomSuccessResponse<GetNewsDto>().okWithData(todoService?.getPaginated(page!!, perPage, status))
     }
 
     @DeleteMapping("/{id}")
     fun delete(@PathVariable id: Long?): ResponseEntity<CustomSuccessResponse<Void?>?>? {
-        todoService.delete(id)
-        return CustomSuccessResponse.ok()
+        todoService?.delete(id)
+        return CustomSuccessResponse<Void>().ok()
     }
 
     @DeleteMapping
     fun deleteAllReady(): ResponseEntity<CustomSuccessResponse<Void?>?>? {
-        todoService.deleteAllReady()
-        return CustomSuccessResponse.ok()
+        todoService?.deleteAllReady()
+        return CustomSuccessResponse<Void>().ok()
     }
 
     @PatchMapping
-    fun patch(@RequestBody @Validated(TodoDto.ChangeStatus::class) dto: TodoDto?): ResponseEntity<CustomSuccessResponse<Void?>?>? {
-        todoService.patch(dto)
-        return CustomSuccessResponse.ok()
+    fun patch(@RequestBody @Validated(TodoDto.ChangeStatus::class) dto: TodoDto?):
+            ResponseEntity<CustomSuccessResponse<Void?>?>? {
+        if (dto != null) {
+            todoService?.patch(dto)
+        }
+        return CustomSuccessResponse<Void>().ok()
     }
 
     @PatchMapping("/status/{id}")
@@ -56,8 +60,8 @@ class TodoController {
         @PathVariable id: Long?,
         @RequestBody @Validated(TodoDto.ChangeStatus::class) dto: TodoDto?
     ): ResponseEntity<CustomSuccessResponse<Void?>?>? {
-        todoService.patchStatus(id, dto)
-        return CustomSuccessResponse.ok()
+        todoService?.patchStatus(id, dto!!)
+        return CustomSuccessResponse<Void>().ok()
     }
 
     @PatchMapping("/text/{id}")
@@ -65,7 +69,7 @@ class TodoController {
         @PathVariable id: Long?,
         @RequestBody @Validated(TodoDto.ChangeText::class) dto: TodoDto?
     ): ResponseEntity<CustomSuccessResponse<Void?>?>? {
-        todoService.patchText(id, dto)
-        return CustomSuccessResponse.ok()
+        todoService?.patchText(id, dto!!)
+        return CustomSuccessResponse<Void>().ok()
     }
 }

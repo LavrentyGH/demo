@@ -20,9 +20,9 @@ import java.time.LocalDateTime
 class TodoEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private val id: Long? = null
-    private val text: String? = null
-    private val status = false
+    val id: Long? = null
+    var text: String? = null
+    var status = false
 
     @CreationTimestamp
     private val createdAt: LocalDateTime? = null
