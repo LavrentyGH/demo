@@ -13,11 +13,11 @@ class TodoDto {
 
     @Null(groups = [ChangeStatus::class])
     @NotNull(groups = [Create::class, ChangeText::class])
-    val text: @Length(max = 160, min = 3, groups = [Create::class, ChangeText::class]) String? = null
+    var text: @Length(max = 160, min = 3, groups = [Create::class, ChangeText::class]) String? = null
 
     @Null(groups = [ChangeText::class])
     @NotNull(groups = [ChangeStatus::class])
-    val status: Boolean? = null
+    var status: Boolean? = null
 
     @Null(groups = [ChangeText::class, ChangeStatus::class])
     val createdAt: LocalDateTime? = null

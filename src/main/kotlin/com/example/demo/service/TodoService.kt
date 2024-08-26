@@ -3,6 +3,7 @@ package com.example.demo.service
 import com.example.demo.dto.GetNewsDto
 import com.example.demo.dto.TodoDto
 import com.example.demo.entity.TodoEntity
+import com.example.demo.mappers.Mapper
 import com.example.demo.mappers.TodoMapper
 import com.example.demo.reposirores.TodoRepository
 import org.springframework.beans.factory.annotation.Autowired
@@ -13,41 +14,41 @@ import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 
 @Service
-class TodoService {
+open class TodoService {
 
     @Autowired
     private val todoRepository: TodoRepository? = null
 
     @Transactional
-    fun create(dto: TodoDto?): TodoDto? {
-        val entity: TodoEntity = TodoMapper.  TodoMapper. toToEntity(dto)!!
+    open fun create(dto: TodoDto?): TodoDto? {
+        val entity: TodoEntity = Mapper.mapperToEntity(dto!!)
 
         todoRepository?.save(entity)
-        return TodoMapper.INSTANCE.todoToDto(entity)
+        return Mapper.mapperToDto(entity)
     }
 
     @Transactional
-    fun delete(id: Long?) {
+    open fun delete(id: Long?) {
         todoRepository?.deleteById(id!!)
     }
 
     @Transactional
-    fun deleteAllReady() {
+    open fun deleteAllReady() {
         todoRepository?.deleteAllByStatus(true)
     }
 
     @Transactional
-    fun patch(dto: TodoDto) {
+    open fun patch(dto: TodoDto) {
         todoRepository?.updateStatus(dto.status)
     }
 
     @Transactional
-    fun patchStatus(id: Long?, dto: TodoDto) {
+    open fun patchStatus(id: Long?, dto: TodoDto) {
         todoRepository?.findById(id!!)?.ifPresent { entity -> entity.status = dto.status!! }
     }
 
     @Transactional
-    fun patchText(id: Long?, dto: TodoDto) {
+    open fun patchText(id: Long?, dto: TodoDto) {
         todoRepository?.findById(id!!)?.ifPresent { entity -> entity.status = dto.status!! }
     }
 
